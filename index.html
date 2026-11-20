@@ -10,60 +10,64 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
   <style>
-    /* ── Reset & Base ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --navy:   #0D1B2A;
-      --navy2:  #132236;
-      --gold:   #C9A84C;
-      --gold2:  #E8C46A;
-      --white:  #F5F7FA;
-      --grey:   #8A97A8;
-      --light:  #EAF0F8;
+      --navy:  #0D1B2A;
+      --navy2: #132236;
+      --gold:  #C9A84C;
+      --gold2: #E8C46A;
+      --white: #F5F7FA;
+      --grey:  #8A97A8;
+      --light: #EAF0F8;
     }
     html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--white);
-      color: var(--navy);
-      line-height: 1.6;
-    }
+    body { font-family: 'Inter', sans-serif; background: var(--white); color: var(--navy); line-height: 1.6; }
 
     /* ── Nav ── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      background: rgba(13, 27, 42, 0.95);
-      backdrop-filter: blur(10px);
+      background: rgba(13,27,42,0.95); backdrop-filter: blur(10px);
       display: flex; align-items: center; justify-content: space-between;
       padding: 0 5%; height: 68px;
-      border-bottom: 1px solid rgba(201, 168, 76, 0.2);
+      border-bottom: 1px solid rgba(201,168,76,0.2);
     }
-    .nav-logo {
-      display: flex; align-items: center; gap: 12px; text-decoration: none;
-    }
-    .nav-logo img {
-      height: 40px; width: 40px; object-fit: contain; border-radius: 6px;
-    }
-    .nav-logo span {
-      font-size: 1.15rem; font-weight: 600; color: var(--white);
-      letter-spacing: 0.03em;
-    }
+    .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .nav-logo img { height: 40px; width: 40px; object-fit: contain; border-radius: 6px; }
+    .nav-logo span { font-size: 1.15rem; font-weight: 600; color: var(--white); letter-spacing: 0.03em; }
     .nav-logo span em { color: var(--gold); font-style: normal; }
-    .nav-links {
-      display: flex; gap: 2rem; list-style: none;
-    }
-    .nav-links a {
-      color: rgba(245,247,250,0.75); text-decoration: none;
-      font-size: 0.875rem; font-weight: 500; letter-spacing: 0.04em;
-      transition: color 0.2s;
-    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+    .nav-links a { color: rgba(245,247,250,0.75); text-decoration: none; font-size: 0.875rem; font-weight: 500; letter-spacing: 0.04em; transition: color 0.2s; }
     .nav-links a:hover { color: var(--gold); }
-    .nav-cta {
-      background: var(--gold); color: var(--navy) !important;
-      padding: 8px 20px; border-radius: 6px; font-weight: 600 !important;
-      transition: background 0.2s !important;
-    }
+    .nav-cta { background: var(--gold); color: var(--navy) !important; padding: 8px 20px; border-radius: 6px; font-weight: 600 !important; transition: background 0.2s !important; }
     .nav-cta:hover { background: var(--gold2) !important; color: var(--navy) !important; }
+
+    /* Language Switcher */
+    .lang-switcher {
+      position: relative; display: flex; align-items: center;
+    }
+    .lang-btn {
+      background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.3);
+      color: var(--gold); padding: 6px 14px; border-radius: 6px;
+      font-size: 0.8rem; font-weight: 600; cursor: pointer;
+      display: flex; align-items: center; gap: 6px; white-space: nowrap;
+      transition: all 0.2s;
+    }
+    .lang-btn:hover { background: rgba(201,168,76,0.22); }
+    .lang-dropdown {
+      display: none; position: absolute; top: calc(100% + 8px); right: 0;
+      background: var(--navy2); border: 1px solid rgba(201,168,76,0.25);
+      border-radius: 8px; overflow: hidden; min-width: 160px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    }
+    .lang-dropdown.open { display: block; }
+    .lang-option {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 16px; color: rgba(245,247,250,0.75);
+      font-size: 0.85rem; cursor: pointer; transition: all 0.15s;
+    }
+    .lang-option:hover { background: rgba(201,168,76,0.1); color: var(--gold); }
+    .lang-option.active { color: var(--gold); background: rgba(201,168,76,0.08); }
+
     .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
     .hamburger span { width: 24px; height: 2px; background: var(--white); border-radius: 2px; }
 
@@ -76,139 +80,67 @@
       position: relative; overflow: hidden;
     }
     #hero::before {
-      content: '';
-      position: absolute; inset: 0;
+      content: ''; position: absolute; inset: 0;
       background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='rgba(201,168,76,0.07)' stroke-width='1'%3E%3Cpath d='M0 30h60M30 0v60M0 0l60 60M60 0L0 60'/%3E%3C/g%3E%3C/svg%3E") repeat;
       opacity: 0.5;
     }
     .hero-inner { position: relative; max-width: 820px; }
     .hero-badge {
       display: inline-block;
-      background: rgba(201, 168, 76, 0.15);
-      border: 1px solid rgba(201, 168, 76, 0.4);
-      color: var(--gold);
-      font-size: 0.78rem; font-weight: 600; letter-spacing: 0.12em;
-      text-transform: uppercase; padding: 6px 18px; border-radius: 50px;
-      margin-bottom: 28px;
+      background: rgba(201,168,76,0.15); border: 1px solid rgba(201,168,76,0.4);
+      color: var(--gold); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; padding: 6px 18px; border-radius: 50px; margin-bottom: 28px;
     }
-    .hero-logo {
-      width: 110px; height: 110px; object-fit: contain;
-      border-radius: 16px; margin-bottom: 32px;
-      box-shadow: 0 8px 40px rgba(201,168,76,0.25);
-    }
-    h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2.2rem, 5vw, 3.8rem);
-      color: var(--white); line-height: 1.15; margin-bottom: 24px;
-    }
+    .hero-logo { width: 110px; height: 110px; object-fit: contain; border-radius: 16px; margin-bottom: 32px; box-shadow: 0 8px 40px rgba(201,168,76,0.25); }
+    h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.2rem,5vw,3.8rem); color: var(--white); line-height: 1.15; margin-bottom: 24px; }
     h1 span { color: var(--gold); }
-    .hero-sub {
-      font-size: 1.15rem; color: rgba(245,247,250,0.72);
-      max-width: 600px; margin: 0 auto 40px;
-      font-weight: 300; line-height: 1.8;
-    }
+    .hero-sub { font-size: 1.15rem; color: rgba(245,247,250,0.72); max-width: 600px; margin: 0 auto 40px; font-weight: 300; line-height: 1.8; }
     .hero-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
-    .btn-primary {
-      background: var(--gold); color: var(--navy);
-      padding: 14px 32px; border-radius: 8px; font-weight: 700;
-      text-decoration: none; font-size: 0.95rem; letter-spacing: 0.02em;
-      transition: all 0.25s; box-shadow: 0 4px 20px rgba(201,168,76,0.3);
-    }
-    .btn-primary:hover { background: var(--gold2); transform: translateY(-2px); box-shadow: 0 6px 28px rgba(201,168,76,0.45); }
-    .btn-outline {
-      border: 2px solid rgba(201,168,76,0.5); color: var(--gold);
-      padding: 14px 32px; border-radius: 8px; font-weight: 600;
-      text-decoration: none; font-size: 0.95rem;
-      transition: all 0.25s;
-    }
+    .btn-primary { background: var(--gold); color: var(--navy); padding: 14px 32px; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 0.95rem; transition: all 0.25s; box-shadow: 0 4px 20px rgba(201,168,76,0.3); }
+    .btn-primary:hover { background: var(--gold2); transform: translateY(-2px); }
+    .btn-outline { border: 2px solid rgba(201,168,76,0.5); color: var(--gold); padding: 14px 32px; border-radius: 8px; font-weight: 600; text-decoration: none; font-size: 0.95rem; transition: all 0.25s; }
     .btn-outline:hover { border-color: var(--gold); background: rgba(201,168,76,0.1); }
-    .hero-stats {
-      display: flex; justify-content: center; gap: 48px; flex-wrap: wrap;
-      margin-top: 72px; padding-top: 48px;
-      border-top: 1px solid rgba(201,168,76,0.15);
-    }
+    .hero-stats { display: flex; justify-content: center; gap: 48px; flex-wrap: wrap; margin-top: 72px; padding-top: 48px; border-top: 1px solid rgba(201,168,76,0.15); }
     .stat { text-align: center; }
     .stat-num { font-size: 2rem; font-weight: 700; color: var(--gold); font-family: 'Playfair Display', serif; }
     .stat-label { font-size: 0.8rem; color: rgba(245,247,250,0.55); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 4px; }
 
-    /* ── Sections common ── */
+    /* ── Sections ── */
     section { padding: 96px 5%; }
-    .section-tag {
-      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.15em;
-      text-transform: uppercase; color: var(--gold); margin-bottom: 12px;
-    }
-    h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
-      color: var(--navy); line-height: 1.2; margin-bottom: 20px;
-    }
-    .section-lead {
-      font-size: 1.05rem; color: #4a5568; max-width: 640px; line-height: 1.8;
-    }
+    .section-tag { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+    h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem,3.5vw,2.8rem); color: var(--navy); line-height: 1.2; margin-bottom: 20px; }
+    .section-lead { font-size: 1.05rem; color: #4a5568; max-width: 640px; line-height: 1.8; }
     .centered { text-align: center; }
     .centered .section-lead { margin: 0 auto; }
 
     /* ── Vision ── */
     #vision { background: var(--navy); color: var(--white); }
     #vision h2 { color: var(--white); }
-    #vision .section-lead { color: rgba(245,247,250,0.72); max-width: 100%; }
-    .vision-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 60px; align-items: center; max-width: 1100px; margin: 0 auto;
-    }
+    .vision-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; max-width: 1100px; margin: 0 auto; }
     .vision-text .section-tag { color: var(--gold); }
     .vision-text p { color: rgba(245,247,250,0.72); font-size: 1.05rem; line-height: 1.9; margin-bottom: 20px; }
-    .vision-highlights {
-      display: flex; flex-direction: column; gap: 20px;
-    }
-    .vh-item {
-      background: rgba(201,168,76,0.08); border: 1px solid rgba(201,168,76,0.2);
-      border-left: 4px solid var(--gold);
-      padding: 20px 24px; border-radius: 8px;
-    }
+    .vision-highlights { display: flex; flex-direction: column; gap: 20px; }
+    .vh-item { background: rgba(201,168,76,0.08); border: 1px solid rgba(201,168,76,0.2); border-left: 4px solid var(--gold); padding: 20px 24px; border-radius: 8px; }
     .vh-item h4 { color: var(--gold); font-size: 0.9rem; font-weight: 700; letter-spacing: 0.06em; margin-bottom: 6px; }
     .vh-item p { color: rgba(245,247,250,0.65); font-size: 0.9rem; line-height: 1.7; }
 
-    /* ── Focus Areas ── */
+    /* ── Focus ── */
     #focus { background: var(--light); }
-    .focus-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 28px; margin-top: 56px;
-    }
-    .focus-card {
-      background: var(--white); border-radius: 12px;
-      padding: 36px 28px; border: 1px solid #dde4ef;
-      transition: all 0.3s; cursor: default;
-      position: relative; overflow: hidden;
-    }
-    .focus-card::after {
-      content: ''; position: absolute; bottom: 0; left: 0; right: 0;
-      height: 3px; background: var(--gold);
-      transform: scaleX(0); transition: transform 0.3s;
-    }
+    .focus-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(280px,1fr)); gap: 28px; margin-top: 56px; }
+    .focus-card { background: var(--white); border-radius: 12px; padding: 36px 28px; border: 1px solid #dde4ef; transition: all 0.3s; cursor: default; position: relative; overflow: hidden; }
+    .focus-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: var(--gold); transform: scaleX(0); transition: transform 0.3s; }
     .focus-card:hover { transform: translateY(-6px); box-shadow: 0 16px 48px rgba(13,27,42,0.12); border-color: rgba(201,168,76,0.4); }
     .focus-card:hover::after { transform: scaleX(1); }
-    .focus-icon {
-      width: 52px; height: 52px; background: rgba(13,27,42,0.07);
-      border-radius: 12px; display: flex; align-items: center; justify-content: center;
-      font-size: 1.6rem; margin-bottom: 20px;
-    }
+    .focus-icon { width: 52px; height: 52px; background: rgba(13,27,42,0.07); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; margin-bottom: 20px; }
     .focus-card h3 { font-size: 1.1rem; font-weight: 700; color: var(--navy); margin-bottom: 10px; }
     .focus-card p { font-size: 0.9rem; color: #5a6a7e; line-height: 1.75; }
 
     /* ── Why India ── */
     #why-india { background: var(--white); }
-    .why-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 60px; align-items: start; max-width: 1100px; margin: 0 auto;
-    }
+    .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; max-width: 1100px; margin: 0 auto; }
     .why-left p { font-size: 1.05rem; color: #4a5568; line-height: 1.9; margin-bottom: 20px; }
     .opportunity-list { list-style: none; display: flex; flex-direction: column; gap: 16px; }
-    .opportunity-list li {
-      display: flex; gap: 16px; align-items: flex-start;
-      background: var(--light); border-radius: 10px; padding: 18px 20px;
-    }
+    .opportunity-list li { display: flex; gap: 16px; align-items: flex-start; background: var(--light); border-radius: 10px; padding: 18px 20px; }
     .opp-icon { font-size: 1.4rem; flex-shrink: 0; }
     .opp-text h4 { font-size: 0.95rem; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
     .opp-text p { font-size: 0.875rem; color: #5a6a7e; line-height: 1.65; }
@@ -217,90 +149,42 @@
     #about { background: var(--navy); }
     #about h2 { color: var(--white); }
     #about .section-lead { color: rgba(245,247,250,0.65); }
-    .about-card {
-      max-width: 680px; margin: 56px auto 0;
-      background: rgba(255,255,255,0.05); border: 1px solid rgba(201,168,76,0.25);
-      border-radius: 16px; padding: 48px; text-align: center;
-    }
-    .founder-avatar {
-      width: 100px; height: 100px; border-radius: 50%;
-      background: linear-gradient(135deg, var(--gold), #8a6a1e);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 2.5rem; font-weight: 700; color: var(--navy);
-      margin: 0 auto 24px; font-family: 'Playfair Display', serif;
-      border: 3px solid rgba(201,168,76,0.4);
-    }
+    .about-card { max-width: 680px; margin: 56px auto 0; background: rgba(255,255,255,0.05); border: 1px solid rgba(201,168,76,0.25); border-radius: 16px; padding: 48px; text-align: center; }
+    .founder-avatar { width: 100px; height: 100px; border-radius: 50%; background: linear-gradient(135deg,var(--gold),#8a6a1e); display: flex; align-items: center; justify-content: center; font-size: 2.5rem; font-weight: 700; color: var(--navy); margin: 0 auto 24px; font-family: 'Playfair Display',serif; border: 3px solid rgba(201,168,76,0.4); }
     .about-card h3 { font-size: 1.4rem; color: var(--white); font-weight: 700; margin-bottom: 6px; }
     .about-card .title { color: var(--gold); font-size: 0.9rem; font-weight: 600; letter-spacing: 0.06em; margin-bottom: 24px; }
     .about-card p { color: rgba(245,247,250,0.68); font-size: 0.98rem; line-height: 1.85; margin-bottom: 20px; }
     .about-links { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-top: 28px; }
-    .about-links a {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.3);
-      color: var(--gold); padding: 10px 20px; border-radius: 8px;
-      text-decoration: none; font-size: 0.875rem; font-weight: 600;
-      transition: all 0.2s;
-    }
+    .about-links a { display: inline-flex; align-items: center; gap: 8px; background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.3); color: var(--gold); padding: 10px 20px; border-radius: 8px; text-decoration: none; font-size: 0.875rem; font-weight: 600; transition: all 0.2s; }
     .about-links a:hover { background: rgba(201,168,76,0.22); border-color: var(--gold); }
 
     /* ── Contact ── */
     #contact { background: var(--light); }
-    .contact-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 60px; align-items: start; max-width: 1000px; margin: 56px auto 0;
-    }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; max-width: 1000px; margin: 56px auto 0; }
     .contact-info h3 { font-size: 1.3rem; color: var(--navy); margin-bottom: 16px; }
     .contact-info p { color: #5a6a7e; line-height: 1.8; margin-bottom: 28px; }
     .contact-items { display: flex; flex-direction: column; gap: 16px; }
-    .contact-item {
-      display: flex; align-items: center; gap: 14px;
-      background: var(--white); border-radius: 10px; padding: 16px 18px;
-      border: 1px solid #dde4ef;
-    }
+    .contact-item { display: flex; align-items: center; gap: 14px; background: var(--white); border-radius: 10px; padding: 16px 18px; border: 1px solid #dde4ef; }
     .contact-icon { font-size: 1.3rem; }
     .contact-item a { color: var(--navy); text-decoration: none; font-size: 0.9rem; font-weight: 500; }
     .contact-item a:hover { color: var(--gold); }
     .contact-form { display: flex; flex-direction: column; gap: 16px; }
-    .contact-form input,
-    .contact-form textarea {
-      width: 100%; padding: 14px 16px;
-      border: 1px solid #dde4ef; border-radius: 8px;
-      font-family: 'Inter', sans-serif; font-size: 0.9rem; color: var(--navy);
-      background: var(--white); outline: none; transition: border 0.2s;
-    }
-    .contact-form input:focus,
-    .contact-form textarea:focus { border-color: var(--gold); }
+    .contact-form input, .contact-form textarea { width: 100%; padding: 14px 16px; border: 1px solid #dde4ef; border-radius: 8px; font-family: 'Inter',sans-serif; font-size: 0.9rem; color: var(--navy); background: var(--white); outline: none; transition: border 0.2s; }
+    .contact-form input:focus, .contact-form textarea:focus { border-color: var(--gold); }
     .contact-form textarea { resize: vertical; min-height: 130px; }
-    .contact-form button {
-      background: var(--navy); color: var(--white);
-      padding: 14px 28px; border: none; border-radius: 8px;
-      font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 600;
-      cursor: pointer; transition: all 0.2s; align-self: flex-start;
-    }
+    .contact-form button { background: var(--navy); color: var(--white); padding: 14px 28px; border: none; border-radius: 8px; font-family: 'Inter',sans-serif; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: all 0.2s; align-self: flex-start; }
     .contact-form button:hover { background: var(--gold); color: var(--navy); }
 
     /* ── Footer ── */
-    footer {
-      background: var(--navy); color: rgba(245,247,250,0.45);
-      text-align: center; padding: 32px 5%;
-      font-size: 0.82rem; border-top: 1px solid rgba(201,168,76,0.12);
-    }
+    footer { background: var(--navy); color: rgba(245,247,250,0.45); text-align: center; padding: 32px 5%; font-size: 0.82rem; border-top: 1px solid rgba(201,168,76,0.12); }
     footer a { color: var(--gold); text-decoration: none; }
 
     /* ── Responsive ── */
     @media (max-width: 768px) {
       .nav-links { display: none; }
       .hamburger { display: flex; }
-      .nav-links.open {
-        display: flex; flex-direction: column;
-        position: absolute; top: 68px; left: 0; right: 0;
-        background: var(--navy); padding: 20px 5%;
-        border-bottom: 1px solid rgba(201,168,76,0.2);
-        gap: 20px;
-      }
-      .vision-grid,
-      .why-grid,
-      .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+      .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 68px; left: 0; right: 0; background: var(--navy); padding: 20px 5%; border-bottom: 1px solid rgba(201,168,76,0.2); gap: 20px; }
+      .vision-grid, .why-grid, .contact-grid { grid-template-columns: 1fr; gap: 40px; }
       .hero-stats { gap: 28px; }
       .about-card { padding: 32px 24px; }
     }
@@ -315,11 +199,23 @@
     <span>Navinya <em>Semicon</em></span>
   </a>
   <ul class="nav-links" id="navLinks">
-    <li><a href="#vision">Vision</a></li>
-    <li><a href="#focus">Focus Areas</a></li>
-    <li><a href="#why-india">Why India</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#contact" class="nav-cta">Get in Touch</a></li>
+    <li><a href="#vision" data-i18n="nav_vision">Vision</a></li>
+    <li><a href="#focus" data-i18n="nav_focus">Focus Areas</a></li>
+    <li><a href="#why-india" data-i18n="nav_why">Why India</a></li>
+    <li><a href="#about" data-i18n="nav_about">About</a></li>
+    <li><a href="#contact" class="nav-cta" data-i18n="nav_contact">Get in Touch</a></li>
+    <li>
+      <div class="lang-switcher">
+        <button class="lang-btn" onclick="toggleLangMenu(event)" id="langBtn">🌐 EN ▾</button>
+        <div class="lang-dropdown" id="langDropdown">
+          <div class="lang-option active" onclick="setLang('en')">🇬🇧 English</div>
+          <div class="lang-option" onclick="setLang('de')">🇩🇪 Deutsch</div>
+          <div class="lang-option" onclick="setLang('hi')">🇮🇳 हिन्दी</div>
+          <div class="lang-option" onclick="setLang('ja')">🇯🇵 日本語</div>
+          <div class="lang-option" onclick="setLang('zh')">🇹🇼 繁體中文</div>
+        </div>
+      </div>
+    </li>
   </ul>
   <div class="hamburger" id="hamburger" onclick="toggleMenu()">
     <span></span><span></span><span></span>
@@ -329,34 +225,34 @@
 <!-- ── Hero ── -->
 <section id="hero">
   <div class="hero-inner">
-    <div class="hero-badge">Germany &rarr; Bharat &nbsp;|&nbsp; Semiconductor Infrastructure</div>
+    <div class="hero-badge" data-i18n="hero_badge">Germany → Bharat &nbsp;|&nbsp; Semiconductor Infrastructure</div>
     <img src="Images/NavinyaSemicon.jpg" alt="Navinya Semicon" class="hero-logo" />
-    <h1>Powering India's<br/><span>Semiconductor Future</span></h1>
-    <p class="hero-sub">
+    <h1 data-i18n="hero_h1">Powering India's<br/><span data-i18n="hero_h1_span">Semiconductor Future</span></h1>
+    <p class="hero-sub" data-i18n="hero_sub">
       Navinya Semicon bridges European engineering excellence with India's
       growing semiconductor ambitions — from chip design to full supply chain,
       leveraging government policy and global expertise.
     </p>
     <div class="hero-buttons">
-      <a href="#contact" class="btn-primary">Partner With Us</a>
-      <a href="#vision" class="btn-outline">Our Vision</a>
+      <a href="#contact" class="btn-primary" data-i18n="hero_cta1">Partner With Us</a>
+      <a href="#vision" class="btn-outline" data-i18n="hero_cta2">Our Vision</a>
     </div>
     <div class="hero-stats">
       <div class="stat">
         <div class="stat-num">$10B+</div>
-        <div class="stat-label">India Semicon Incentive</div>
+        <div class="stat-label" data-i18n="stat1">India Semicon Incentive</div>
       </div>
       <div class="stat">
         <div class="stat-num">2030</div>
-        <div class="stat-label">India's Target Year</div>
+        <div class="stat-label" data-i18n="stat2">India's Target Year</div>
       </div>
       <div class="stat">
         <div class="stat-num">3rd</div>
-        <div class="stat-label">Largest Global Market</div>
+        <div class="stat-label" data-i18n="stat3">Largest Global Market</div>
       </div>
       <div class="stat">
         <div class="stat-num">DE→IN</div>
-        <div class="stat-label">German Precision, Indian Scale</div>
+        <div class="stat-label" data-i18n="stat4">German Precision, Indian Scale</div>
       </div>
     </div>
   </div>
@@ -366,41 +262,28 @@
 <section id="vision">
   <div class="vision-grid">
     <div class="vision-text">
-      <div class="section-tag">Our Vision</div>
-      <h2>Building India's Semiconductor Sovereignty</h2>
-      <p>
-        India imports over 85% of its semiconductor requirements. With a booming
-        electronics market, a massive engineering talent pool, and unprecedented
-        government backing, the time to act is now.
-      </p>
-      <p>
-        Navinya Semicon is founded in Germany to combine the precision and
-        credibility of European deep-tech with the ambition and scale of the
-        Indian market — inspired by the trailblazing path of visionaries like
-        Anil Agarwal.
-      </p>
-      <p>
-        We work across the full semiconductor value chain: from materials and
-        design to manufacturing, packaging, and testing — connecting global
-        expertise with India's strategic needs.
-      </p>
+      <div class="section-tag" data-i18n="vision_tag">Our Vision</div>
+      <h2 data-i18n="vision_h2">Building India's Semiconductor Sovereignty</h2>
+      <p data-i18n="vision_p1">India imports over 85% of its semiconductor requirements. With a booming electronics market, a massive engineering talent pool, and unprecedented government backing, the time to act is now.</p>
+      <p data-i18n="vision_p2">Navinya Semicon is founded in Germany to combine the precision and credibility of European deep-tech with the ambition and scale of the Indian market — inspired by the trailblazing path of visionaries like Anil Agarwal.</p>
+      <p data-i18n="vision_p3">We work across the full semiconductor value chain: from materials and design to manufacturing, packaging, and testing — connecting global expertise with India's strategic needs.</p>
     </div>
     <div class="vision-highlights">
       <div class="vh-item">
-        <h4>India Semiconductor Mission</h4>
-        <p>Leveraging ₹76,000 crore government incentives under the ISM to accelerate domestic semiconductor capacity.</p>
+        <h4 data-i18n="vh1_h">India Semiconductor Mission</h4>
+        <p data-i18n="vh1_p">Leveraging ₹76,000 crore government incentives under the ISM to accelerate domestic semiconductor capacity.</p>
       </div>
       <div class="vh-item">
-        <h4>German Engineering Hub</h4>
-        <p>Operating from Germany to access Europe's semiconductor ecosystem, R&D centers, and global supply chains.</p>
+        <h4 data-i18n="vh2_h">German Engineering Hub</h4>
+        <p data-i18n="vh2_p">Operating from Germany to access Europe's semiconductor ecosystem, R&D centers, and global supply chains.</p>
       </div>
       <div class="vh-item">
-        <h4>Full Value Chain Focus</h4>
-        <p>Engaging investors, government bodies, and industry partners across design, fab, ATMP, and materials.</p>
+        <h4 data-i18n="vh3_h">Full Value Chain Focus</h4>
+        <p data-i18n="vh3_p">Engaging investors, government bodies, and industry partners across design, fab, ATMP, and materials.</p>
       </div>
       <div class="vh-item">
-        <h4>Long-term Nation Building</h4>
-        <p>Beyond business — contributing to India's strategic self-reliance in critical technology infrastructure.</p>
+        <h4 data-i18n="vh4_h">Long-term Nation Building</h4>
+        <p data-i18n="vh4_p">Beyond business — contributing to India's strategic self-reliance in critical technology infrastructure.</p>
       </div>
     </div>
   </div>
@@ -409,43 +292,40 @@
 <!-- ── Focus Areas ── -->
 <section id="focus">
   <div class="centered">
-    <div class="section-tag">What We Do</div>
-    <h2>Semiconductor Focus Areas</h2>
-    <p class="section-lead">
-      Navinya Semicon operates across the entire semiconductor ecosystem,
-      connecting India's demand with global supply and expertise.
-    </p>
+    <div class="section-tag" data-i18n="focus_tag">What We Do</div>
+    <h2 data-i18n="focus_h2">Semiconductor Focus Areas</h2>
+    <p class="section-lead" data-i18n="focus_lead">Navinya Semicon operates across the entire semiconductor ecosystem, connecting India's demand with global supply and expertise.</p>
   </div>
   <div class="focus-grid">
     <div class="focus-card">
       <div class="focus-icon">🔬</div>
-      <h3>Chip Design & IP</h3>
-      <p>Supporting fabless chip design ventures in India, connecting them with EDA tools, IP libraries, and European design centers.</p>
+      <h3 data-i18n="fc1_h">Chip Design &amp; IP</h3>
+      <p data-i18n="fc1_p">Supporting fabless chip design ventures in India, connecting them with EDA tools, IP libraries, and European design centers.</p>
     </div>
     <div class="focus-card">
       <div class="focus-icon">🏭</div>
-      <h3>Semiconductor Manufacturing</h3>
-      <p>Facilitating fab investments and partnerships, aligned with India's greenfield fab incentive programs for cutting-edge nodes.</p>
+      <h3 data-i18n="fc2_h">Semiconductor Manufacturing</h3>
+      <p data-i18n="fc2_p">Facilitating fab investments and partnerships, aligned with India's greenfield fab incentive programs for cutting-edge nodes.</p>
     </div>
     <div class="focus-card">
       <div class="focus-icon">📦</div>
-      <h3>Packaging & Testing (ATMP)</h3>
-      <p>India's near-term semiconductor opportunity — advanced packaging and testing infrastructure with strong government support.</p>
+      <h3 data-i18n="fc3_h">Packaging &amp; Testing (ATMP)</h3>
+      <p data-i18n="fc3_p">India's near-term semiconductor opportunity — advanced packaging and testing infrastructure with strong government support.</p>
     </div>
     <div class="focus-card">
       <div class="focus-icon">⛏️</div>
-      <h3>Raw Materials & Supply Chain</h3>
-      <p>Securing critical mineral supply chains — silicon, rare earths, specialty gases — essential for semiconductor production.</p>
+      <h3 data-i18n="fc4_h">Raw Materials &amp; Supply Chain</h3>
+      <p data-i18n="fc4_p">Securing critical mineral supply chains — silicon, rare earths, specialty gases — essential for semiconductor production.</p>
     </div>
     <div class="focus-card">
       <div class="focus-icon">🤝</div>
-      <h3>Investment & Partnerships</h3>
-      <p>Bridging European and global investors with India's semiconductor opportunity, navigating policy, and structuring JVs.</p>
+      <h3 data-i18n="fc5_h">Investment &amp; Partnerships</h3>
+      <p data-i18n="fc5_p">Bridging European and global investors with India's semiconductor opportunity, navigating policy, and structuring JVs.</p>
     </div>
     <div class="focus-card">
       <div class="focus-icon">🎓</div>
-      <h3>Talent & R&D Ecosystem</h3>
-      <p>Building the human capital pipeline — collaborating with IITs, German universities, and industry to train semiconductor engineers.</p>
+      <h3 data-i18n="fc6_h">Talent &amp; R&amp;D Ecosystem</h3>
+      <p data-i18n="fc6_p">Building the human capital pipeline — collaborating with IITs, German universities, and industry to train semiconductor engineers.</p>
     </div>
   </div>
 </section>
@@ -454,55 +334,46 @@
 <section id="why-india">
   <div class="why-grid">
     <div class="why-left">
-      <div class="section-tag">The Opportunity</div>
-      <h2>Why India, Why Now</h2>
-      <p>
-        India stands at an inflection point. With a $300B+ electronics market
-        projected by 2026, a digitally-driven economy, and a government
-        committed to making India a global semiconductor hub, the conditions
-        for investment have never been more compelling.
-      </p>
-      <p>
-        The India Semiconductor Mission (ISM) offers up to 50% capital
-        expenditure support for fabs, ATMP units, and compound semiconductor
-        facilities — a scale of subsidy rarely seen globally.
-      </p>
+      <div class="section-tag" data-i18n="why_tag">The Opportunity</div>
+      <h2 data-i18n="why_h2">Why India, Why Now</h2>
+      <p data-i18n="why_p1">India stands at an inflection point. With a $300B+ electronics market projected by 2026, a digitally-driven economy, and a government committed to making India a global semiconductor hub, the conditions for investment have never been more compelling.</p>
+      <p data-i18n="why_p2">The India Semiconductor Mission (ISM) offers up to 50% capital expenditure support for fabs, ATMP units, and compound semiconductor facilities — a scale of subsidy rarely seen globally.</p>
     </div>
     <div>
       <ul class="opportunity-list">
         <li>
           <span class="opp-icon">🇮🇳</span>
           <div class="opp-text">
-            <h4>India Semiconductor Mission (ISM)</h4>
-            <p>₹76,000 crore (~$10B) scheme offering 50% capex subsidy for semiconductor fabs and ATMP facilities.</p>
+            <h4 data-i18n="opp1_h">India Semiconductor Mission (ISM)</h4>
+            <p data-i18n="opp1_p">₹76,000 crore (~$10B) scheme offering 50% capex subsidy for semiconductor fabs and ATMP facilities.</p>
           </div>
         </li>
         <li>
           <span class="opp-icon">📈</span>
           <div class="opp-text">
-            <h4>Fastest Growing Market</h4>
-            <p>India's semiconductor market growing at 19% CAGR, driven by mobile, automotive, and industrial demand.</p>
+            <h4 data-i18n="opp2_h">Fastest Growing Market</h4>
+            <p data-i18n="opp2_p">India's semiconductor market growing at 19% CAGR, driven by mobile, automotive, and industrial demand.</p>
           </div>
         </li>
         <li>
           <span class="opp-icon">👩‍💻</span>
           <div class="opp-text">
-            <h4>World's Largest STEM Talent Pool</h4>
-            <p>Over 1.5 million engineering graduates annually — a ready workforce for semiconductor design and manufacturing.</p>
+            <h4 data-i18n="opp3_h">World's Largest STEM Talent Pool</h4>
+            <p data-i18n="opp3_p">Over 1.5 million engineering graduates annually — a ready workforce for semiconductor design and manufacturing.</p>
           </div>
         </li>
         <li>
           <span class="opp-icon">🌐</span>
           <div class="opp-text">
-            <h4>Geopolitical Tailwinds</h4>
-            <p>Global supply chain diversification away from China makes India a strategic alternative for semiconductor production.</p>
+            <h4 data-i18n="opp4_h">Geopolitical Tailwinds</h4>
+            <p data-i18n="opp4_p">Global supply chain diversification away from China makes India a strategic alternative for semiconductor production.</p>
           </div>
         </li>
         <li>
           <span class="opp-icon">🏛️</span>
           <div class="opp-text">
-            <h4>Policy & Infrastructure Support</h4>
-            <p>Dedicated semiconductor zones, single-window clearances, and bilateral agreements with US, Japan, and EU.</p>
+            <h4 data-i18n="opp5_h">Policy &amp; Infrastructure Support</h4>
+            <p data-i18n="opp5_p">Dedicated semiconductor zones, single-window clearances, and bilateral agreements with US, Japan, and EU.</p>
           </div>
         </li>
       </ul>
@@ -513,37 +384,24 @@
 <!-- ── About ── -->
 <section id="about">
   <div class="centered">
-    <div class="section-tag">Leadership</div>
-    <h2>About Navinya Semicon</h2>
-    <p class="section-lead">
-      Founded with the conviction that India's semiconductor future will be
-      built by those who bridge East and West — in technology, capital, and vision.
-    </p>
+    <div class="section-tag" data-i18n="about_tag">Leadership</div>
+    <h2 data-i18n="about_h2">About Navinya Semicon</h2>
+    <p class="section-lead" data-i18n="about_lead">Founded with the conviction that India's semiconductor future will be built by those who bridge East and West — in technology, capital, and vision.</p>
   </div>
   <div class="about-card">
     <div class="founder-avatar">VB</div>
     <h3>Vivek Brahamane</h3>
-    <div class="title">Founder &amp; CEO &nbsp;·&nbsp; Based in Germany</div>
-    <p>
-      Vivek brings a deep passion for technology and an entrepreneurial vision
-      to build India's semiconductor ecosystem from the ground up. Inspired by
-      the transformative impact of industrialists like Anil Agarwal, Navinya
-      Semicon is founded to channel European expertise and global capital into
-      India's most strategic technology sector.
-    </p>
-    <p>
-      Operating from Germany, Vivek combines access to Europe's world-class
-      semiconductor ecosystem with an intimate understanding of India's
-      market dynamics, policy landscape, and long-term potential.
-    </p>
+    <div class="title" data-i18n="about_title">Founder &amp; CEO &nbsp;·&nbsp; Based in Germany</div>
+    <p data-i18n="about_p1">Vivek brings a deep passion for technology and an entrepreneurial vision to build India's semiconductor ecosystem from the ground up. Inspired by the transformative impact of industrialists like Anil Agarwal, Navinya Semicon is founded to channel European expertise and global capital into India's most strategic technology sector.</p>
+    <p data-i18n="about_p2">Operating from Germany, Vivek combines access to Europe's world-class semiconductor ecosystem with an intimate understanding of India's market dynamics, policy landscape, and long-term potential.</p>
     <div class="about-links">
       <a href="https://www.linkedin.com/in/vivek420/" target="_blank" rel="noopener">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-        LinkedIn Profile
+        LinkedIn
       </a>
       <a href="mailto:vivek.brahamane@gmail.com">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
-        Send Email
+        <span data-i18n="about_email">Send Email</span>
       </a>
     </div>
   </div>
@@ -552,21 +410,14 @@
 <!-- ── Contact ── -->
 <section id="contact">
   <div class="centered">
-    <div class="section-tag">Connect</div>
-    <h2>Get in Touch</h2>
-    <p class="section-lead">
-      Whether you are an investor, government body, industry partner, or fellow
-      entrepreneur — we would love to hear from you.
-    </p>
+    <div class="section-tag" data-i18n="contact_tag">Connect</div>
+    <h2 data-i18n="contact_h2">Get in Touch</h2>
+    <p class="section-lead" data-i18n="contact_lead">Whether you are an investor, government body, industry partner, or fellow entrepreneur — we would love to hear from you.</p>
   </div>
   <div class="contact-grid">
     <div class="contact-info">
-      <h3>Let's Build Together</h3>
-      <p>
-        Navinya Semicon is actively seeking partnerships, investment discussions,
-        and collaborations across the semiconductor value chain. Reach out to
-        explore how we can work together.
-      </p>
+      <h3 data-i18n="contact_info_h">Let's Build Together</h3>
+      <p data-i18n="contact_info_p">Navinya Semicon is actively seeking partnerships, investment discussions, and collaborations across the semiconductor value chain.</p>
       <div class="contact-items">
         <div class="contact-item">
           <span class="contact-icon">📧</span>
@@ -578,23 +429,23 @@
         </div>
         <div class="contact-item">
           <span class="contact-icon">📍</span>
-          <span style="font-size:0.9rem;color:#5a6a7e;">Germany &nbsp;|&nbsp; India Operations</span>
+          <span style="font-size:0.9rem;color:#5a6a7e;" data-i18n="contact_location">Germany &nbsp;|&nbsp; India Operations</span>
         </div>
       </div>
     </div>
     <form class="contact-form" onsubmit="handleSubmit(event)">
-      <input type="text" placeholder="Your Name" required />
-      <input type="email" placeholder="Your Email" required />
-      <input type="text" placeholder="Organisation / Company" />
-      <textarea placeholder="Tell us about your interest or how you'd like to collaborate..."></textarea>
-      <button type="submit">Send Message &rarr;</button>
+      <input type="text" data-i18n-placeholder="form_name" placeholder="Your Name" required />
+      <input type="email" data-i18n-placeholder="form_email" placeholder="Your Email" required />
+      <input type="text" data-i18n-placeholder="form_org" placeholder="Organisation / Company" />
+      <textarea data-i18n-placeholder="form_msg" placeholder="Tell us about your interest or how you'd like to collaborate..."></textarea>
+      <button type="submit" data-i18n="form_submit">Send Message →</button>
     </form>
   </div>
 </section>
 
 <!-- ── Footer ── -->
 <footer>
-  <p>&copy; 2026 Navinya Semicon. Founded in Germany. Building for India.</p>
+  <p>&copy; 2026 Navinya Semicon. <span data-i18n="footer_tagline">Founded in Germany. Connecting the World to India's Semiconductor Future.</span></p>
   <p style="margin-top:8px;">
     <a href="mailto:vivek.brahamane@gmail.com">vivek.brahamane@gmail.com</a>
     &nbsp;&bull;&nbsp;
@@ -603,57 +454,300 @@
 </footer>
 
 <script>
-  function toggleMenu() {
-    document.getElementById('navLinks').classList.toggle('open');
+const LANGS = {
+  en: {
+    flag: '🇬🇧', code: 'EN',
+    nav_vision: 'Vision', nav_focus: 'Focus Areas', nav_why: 'Why India', nav_about: 'About', nav_contact: 'Get in Touch',
+    hero_badge: 'Germany → Bharat | Semiconductor Infrastructure',
+    hero_h1: "Powering India's<br/><span>Semiconductor Future</span>",
+    hero_sub: "Navinya Semicon bridges European engineering excellence with India's growing semiconductor ambitions — from chip design to full supply chain, leveraging government policy and global expertise.",
+    hero_cta1: 'Partner With Us', hero_cta2: 'Our Vision',
+    stat1: 'India Semicon Incentive', stat2: "India's Target Year", stat3: 'Largest Global Market', stat4: 'German Precision, Indian Scale',
+    vision_tag: 'Our Vision', vision_h2: "Building India's Semiconductor Sovereignty",
+    vision_p1: 'India imports over 85% of its semiconductor requirements. With a booming electronics market, a massive engineering talent pool, and unprecedented government backing, the time to act is now.',
+    vision_p2: 'Navinya Semicon is founded in Germany to combine the precision and credibility of European deep-tech with the ambition and scale of the Indian market — inspired by the trailblazing path of visionaries like Anil Agarwal.',
+    vision_p3: 'We work across the full semiconductor value chain: from materials and design to manufacturing, packaging, and testing — connecting global expertise with India\'s strategic needs.',
+    vh1_h: 'India Semiconductor Mission', vh1_p: 'Leveraging ₹76,000 crore government incentives under the ISM to accelerate domestic semiconductor capacity.',
+    vh2_h: 'German Engineering Hub', vh2_p: "Operating from Germany to access Europe's semiconductor ecosystem, R&D centers, and global supply chains.",
+    vh3_h: 'Full Value Chain Focus', vh3_p: 'Engaging investors, government bodies, and industry partners across design, fab, ATMP, and materials.',
+    vh4_h: 'Long-term Nation Building', vh4_p: "Beyond business — contributing to India's strategic self-reliance in critical technology infrastructure.",
+    focus_tag: 'What We Do', focus_h2: 'Semiconductor Focus Areas', focus_lead: "Navinya Semicon operates across the entire semiconductor ecosystem, connecting India's demand with global supply and expertise.",
+    fc1_h: 'Chip Design & IP', fc1_p: 'Supporting fabless chip design ventures in India, connecting them with EDA tools, IP libraries, and European design centers.',
+    fc2_h: 'Semiconductor Manufacturing', fc2_p: "Facilitating fab investments and partnerships, aligned with India's greenfield fab incentive programs for cutting-edge nodes.",
+    fc3_h: 'Packaging & Testing (ATMP)', fc3_p: "India's near-term semiconductor opportunity — advanced packaging and testing infrastructure with strong government support.",
+    fc4_h: 'Raw Materials & Supply Chain', fc4_p: 'Securing critical mineral supply chains — silicon, rare earths, specialty gases — essential for semiconductor production.',
+    fc5_h: 'Investment & Partnerships', fc5_p: "Bridging European and global investors with India's semiconductor opportunity, navigating policy, and structuring JVs.",
+    fc6_h: 'Talent & R&D Ecosystem', fc6_p: 'Building the human capital pipeline — collaborating with IITs, German universities, and industry to train semiconductor engineers.',
+    why_tag: 'The Opportunity', why_h2: 'Why India, Why Now',
+    why_p1: 'India stands at an inflection point. With a $300B+ electronics market projected by 2026, a digitally-driven economy, and a government committed to making India a global semiconductor hub, the conditions for investment have never been more compelling.',
+    why_p2: 'The India Semiconductor Mission (ISM) offers up to 50% capital expenditure support for fabs, ATMP units, and compound semiconductor facilities — a scale of subsidy rarely seen globally.',
+    opp1_h: 'India Semiconductor Mission (ISM)', opp1_p: '₹76,000 crore (~$10B) scheme offering 50% capex subsidy for semiconductor fabs and ATMP facilities.',
+    opp2_h: 'Fastest Growing Market', opp2_p: "India's semiconductor market growing at 19% CAGR, driven by mobile, automotive, and industrial demand.",
+    opp3_h: "World's Largest STEM Talent Pool", opp3_p: 'Over 1.5 million engineering graduates annually — a ready workforce for semiconductor design and manufacturing.',
+    opp4_h: 'Geopolitical Tailwinds', opp4_p: 'Global supply chain diversification away from China makes India a strategic alternative for semiconductor production.',
+    opp5_h: 'Policy & Infrastructure Support', opp5_p: 'Dedicated semiconductor zones, single-window clearances, and bilateral agreements with US, Japan, and EU.',
+    about_tag: 'Leadership', about_h2: 'About Navinya Semicon', about_lead: "Founded with the conviction that India's semiconductor future will be built by those who bridge East and West — in technology, capital, and vision.",
+    about_title: 'Founder & CEO · Based in Germany',
+    about_p1: "Vivek brings a deep passion for technology and an entrepreneurial vision to build India's semiconductor ecosystem from the ground up. Inspired by the transformative impact of industrialists like Anil Agarwal, Navinya Semicon is founded to channel European expertise and global capital into India's most strategic technology sector.",
+    about_p2: "Operating from Germany, Vivek combines access to Europe's world-class semiconductor ecosystem with an intimate understanding of India's market dynamics, policy landscape, and long-term potential.",
+    about_email: 'Send Email',
+    contact_tag: 'Connect', contact_h2: 'Get in Touch', contact_lead: 'Whether you are an investor, government body, industry partner, or fellow entrepreneur — we would love to hear from you.',
+    contact_info_h: "Let's Build Together", contact_info_p: 'Navinya Semicon is actively seeking partnerships, investment discussions, and collaborations across the semiconductor value chain.',
+    contact_location: 'Germany | India Operations',
+    form_name: 'Your Name', form_email: 'Your Email', form_org: 'Organisation / Company', form_msg: 'Tell us about your interest or how you\'d like to collaborate...', form_submit: 'Send Message →',
+    footer_tagline: "Founded in Germany. Connecting the World to India's Semiconductor Future."
+  },
+
+  de: {
+    flag: '🇩🇪', code: 'DE',
+    nav_vision: 'Vision', nav_focus: 'Schwerpunkte', nav_why: 'Warum Indien', nav_about: 'Über uns', nav_contact: 'Kontakt',
+    hero_badge: 'Deutschland → Bharat | Halbleiter-Infrastruktur',
+    hero_h1: 'Indiens<br/><span>Halbleiterzukunft gestalten</span>',
+    hero_sub: 'Navinya Semicon verbindet europäische Ingenieursexzellenz mit Indiens wachsenden Halbleiterambitionen — von Chip-Design bis zur vollständigen Lieferkette.',
+    hero_cta1: 'Partner werden', hero_cta2: 'Unsere Vision',
+    stat1: 'Indien Halbleiter-Förderung', stat2: 'Indiens Zieljahr', stat3: 'Größter Weltmarkt', stat4: 'Deutsche Präzision, Indische Stärke',
+    vision_tag: 'Unsere Vision', vision_h2: 'Indiens Halbleiter-Souveränität aufbauen',
+    vision_p1: 'Indien importiert über 85% seines Halbleiterbedarfs. Mit einem boomenden Elektronikmarkt, einem riesigen Ingenieurspool und beispielloser staatlicher Unterstützung ist jetzt der richtige Zeitpunkt zum Handeln.',
+    vision_p2: 'Navinya Semicon wurde in Deutschland gegründet, um die Präzision und Glaubwürdigkeit europäischer Deep-Tech mit dem Ehrgeiz und der Größe des indischen Marktes zu verbinden.',
+    vision_p3: 'Wir arbeiten entlang der gesamten Halbleiter-Wertschöpfungskette: von Materialien und Design bis hin zu Fertigung, Verpackung und Tests.',
+    vh1_h: 'India Semiconductor Mission', vh1_p: 'Nutzung von ₹76.000 Crore staatlichen Anreizen im Rahmen der ISM zur Beschleunigung der heimischen Halbleiterkapazität.',
+    vh2_h: 'Deutsches Ingenieurszentrum', vh2_p: 'Betrieb aus Deutschland heraus für Zugang zum europäischen Halbleiter-Ökosystem, F&E-Zentren und globalen Lieferketten.',
+    vh3_h: 'Fokus auf die gesamte Wertschöpfungskette', vh3_p: 'Einbindung von Investoren, Regierungsstellen und Industriepartnern in Design, Fab, ATMP und Materialien.',
+    vh4_h: 'Langfristiger Nationenaufbau', vh4_p: 'Über das Geschäftliche hinaus — Beitrag zur strategischen Eigenständigkeit Indiens in kritischer Technologieinfrastruktur.',
+    focus_tag: 'Was wir tun', focus_h2: 'Halbleiter-Schwerpunkte', focus_lead: 'Navinya Semicon ist im gesamten Halbleiter-Ökosystem tätig und verbindet Indiens Nachfrage mit globalem Angebot und Expertise.',
+    fc1_h: 'Chip-Design & IP', fc1_p: 'Unterstützung von fabless Chip-Design-Unternehmen in Indien, Vernetzung mit EDA-Tools und europäischen Designzentren.',
+    fc2_h: 'Halbleiterfertigung', fc2_p: 'Förderung von Fab-Investitionen und Partnerschaften gemäß Indiens Greenfield-Fab-Förderprogrammen.',
+    fc3_h: 'Packaging & Testing (ATMP)', fc3_p: 'Indiens kurzfristige Halbleitermöglichkeit — fortschrittliche Packaging- und Testinfrastruktur mit starker staatlicher Unterstützung.',
+    fc4_h: 'Rohstoffe & Lieferkette', fc4_p: 'Sicherung kritischer Minerallieferketten — Silizium, Seltene Erden, Spezialgase — essentiell für die Halbleiterproduktion.',
+    fc5_h: 'Investitionen & Partnerschaften', fc5_p: 'Verbindung europäischer und globaler Investoren mit Indiens Halbleitermöglichkeit, Politiknavigation und JV-Strukturierung.',
+    fc6_h: 'Talente & F&E-Ökosystem', fc6_p: 'Aufbau der Human-Capital-Pipeline durch Zusammenarbeit mit IITs, deutschen Universitäten und der Industrie.',
+    why_tag: 'Die Chance', why_h2: 'Warum Indien, warum jetzt',
+    why_p1: 'Indien steht an einem Wendepunkt. Mit einem Elektronikmarkt von über 300 Mrd. USD bis 2026 und einer Regierung, die Indien zu einem globalen Halbleiter-Hub machen will, waren die Investitionsbedingungen nie besser.',
+    why_p2: 'Die India Semiconductor Mission (ISM) bietet bis zu 50% Kapitalausgabenunterstützung für Fabs, ATMP-Einheiten und Verbindungshalbleiterfabriken.',
+    opp1_h: 'India Semiconductor Mission (ISM)', opp1_p: '₹76.000 Crore (~$10 Mrd.) Programm mit 50% Capex-Subvention für Halbleiterfabs und ATMP-Anlagen.',
+    opp2_h: 'Am schnellsten wachsender Markt', opp2_p: 'Indiens Halbleitermarkt wächst mit 19% CAGR, getrieben durch Mobil-, Automobil- und Industrienachfrage.',
+    opp3_h: 'Weltgrößter MINT-Talentpool', opp3_p: 'Über 1,5 Millionen Ingenieurabsolventen jährlich — eine einsatzbereite Belegschaft für Halbleiterdesign und -fertigung.',
+    opp4_h: 'Geopolitischer Rückenwind', opp4_p: 'Globale Lieferkettendiversifizierung weg von China macht Indien zur strategischen Alternative für die Halbleiterproduktion.',
+    opp5_h: 'Politik- & Infrastrukturunterstützung', opp5_p: 'Dedizierte Halbleiterzonen, One-Stop-Genehmigungen und bilaterale Abkommen mit USA, Japan und EU.',
+    about_tag: 'Führung', about_h2: 'Über Navinya Semicon', about_lead: 'Gegründet in der Überzeugung, dass Indiens Halbleiterzukunft von denjenigen aufgebaut wird, die Ost und West verbinden.',
+    about_title: 'Gründer & CEO · Ansässig in Deutschland',
+    about_p1: 'Vivek bringt eine tiefe Leidenschaft für Technologie und eine unternehmerische Vision mit, um Indiens Halbleiter-Ökosystem von Grund auf aufzubauen. Inspiriert von Visionären wie Anil Agarwal.',
+    about_p2: 'Von Deutschland aus kombiniert Vivek den Zugang zum erstklassigen europäischen Halbleiter-Ökosystem mit einem tiefen Verständnis von Indiens Marktdynamik und Politiklandschaft.',
+    about_email: 'E-Mail senden',
+    contact_tag: 'Verbinden', contact_h2: 'Kontakt aufnehmen', contact_lead: 'Ob Investor, Regierungsstelle, Industriepartner oder Mitunternehmer — wir freuen uns von Ihnen zu hören.',
+    contact_info_h: 'Gemeinsam aufbauen', contact_info_p: 'Navinya Semicon sucht aktiv Partnerschaften, Investitionsgespräche und Kooperationen entlang der gesamten Halbleiter-Wertschöpfungskette.',
+    contact_location: 'Deutschland | Indien-Operationen',
+    form_name: 'Ihr Name', form_email: 'Ihre E-Mail', form_org: 'Organisation / Unternehmen', form_msg: 'Erzählen Sie uns von Ihrem Interesse oder wie Sie zusammenarbeiten möchten...', form_submit: 'Nachricht senden →',
+    footer_tagline: 'Gegründet in Deutschland. Die Welt mit Indiens Halbleiterzukunft verbinden.'
+  },
+
+  hi: {
+    flag: '🇮🇳', code: 'HI',
+    nav_vision: 'दृष्टि', nav_focus: 'फोकस क्षेत्र', nav_why: 'भारत क्यों', nav_about: 'हमारे बारे में', nav_contact: 'संपर्क करें',
+    hero_badge: 'जर्मनी → भारत | सेमीकंडक्टर अवसंरचना',
+    hero_h1: 'भारत का<br/><span>सेमीकंडक्टर भविष्य</span>',
+    hero_sub: 'नविन्या सेमीकॉन यूरोपीय इंजीनियरिंग उत्कृष्टता और भारत की बढ़ती सेमीकंडक्टर महत्वाकांक्षाओं को जोड़ती है — चिप डिज़ाइन से लेकर पूर्ण आपूर्ति श्रृंखला तक।',
+    hero_cta1: 'भागीदार बनें', hero_cta2: 'हमारी दृष्टि',
+    stat1: 'भारत सेमीकॉन प्रोत्साहन', stat2: 'भारत का लक्ष्य वर्ष', stat3: 'सबसे बड़ा वैश्विक बाजार', stat4: 'जर्मन परिशुद्धता, भारतीय स्तर',
+    vision_tag: 'हमारी दृष्टि', vision_h2: 'भारत की सेमीकंडक्टर संप्रभुता का निर्माण',
+    vision_p1: 'भारत अपनी सेमीकंडक्टर जरूरतों का 85% से अधिक आयात करता है। बढ़ते इलेक्ट्रॉनिक्स बाजार, विशाल इंजीनियरिंग प्रतिभा और अभूतपूर्व सरकारी समर्थन के साथ, अभी कार्य करने का सही समय है।',
+    vision_p2: 'नविन्या सेमीकॉन जर्मनी में स्थापित है ताकि यूरोपीय डीप-टेक की सटीकता को भारतीय बाजार की महत्वाकांक्षा के साथ जोड़ा जा सके — अनिल अग्रवाल जैसे दूरदर्शी लोगों से प्रेरित।',
+    vision_p3: 'हम सेमीकंडक्टर मूल्य श्रृंखला में काम करते हैं: सामग्री और डिज़ाइन से लेकर निर्माण, पैकेजिंग और परीक्षण तक।',
+    vh1_h: 'भारत सेमीकंडक्टर मिशन', vh1_p: 'ISM के तहत ₹76,000 करोड़ सरकारी प्रोत्साहन का लाभ उठाकर घरेलू सेमीकंडक्टर क्षमता को बढ़ाना।',
+    vh2_h: 'जर्मन इंजीनियरिंग केंद्र', vh2_p: 'यूरोप के सेमीकंडक्टर पारिस्थितिकी तंत्र, R&D केंद्रों और वैश्विक आपूर्ति श्रृंखलाओं तक पहुंच के लिए जर्मनी से संचालन।',
+    vh3_h: 'पूर्ण मूल्य श्रृंखला फोकस', vh3_p: 'डिज़ाइन, फैब, ATMP और सामग्री में निवेशकों, सरकारी निकायों और उद्योग भागीदारों को जोड़ना।',
+    vh4_h: 'दीर्घकालिक राष्ट्र निर्माण', vh4_p: 'व्यापार से परे — महत्वपूर्ण प्रौद्योगिकी अवसंरचना में भारत की रणनीतिक आत्मनिर्भरता में योगदान।',
+    focus_tag: 'हम क्या करते हैं', focus_h2: 'सेमीकंडक्टर फोकस क्षेत्र', focus_lead: 'नविन्या सेमीकॉन पूरे सेमीकंडक्टर पारिस्थितिकी तंत्र में काम करती है।',
+    fc1_h: 'चिप डिज़ाइन और IP', fc1_p: 'भारत में फैबलेस चिप डिज़ाइन उद्यमों का समर्थन, EDA टूल्स और यूरोपीय डिज़ाइन केंद्रों से जोड़ना।',
+    fc2_h: 'सेमीकंडक्टर निर्माण', fc2_p: 'भारत के ग्रीनफील्ड फैब प्रोत्साहन कार्यक्रमों के अनुरूप फैब निवेश और साझेदारी की सुविधा।',
+    fc3_h: 'पैकेजिंग और परीक्षण (ATMP)', fc3_p: 'भारत का निकट-अवधि सेमीकंडक्टर अवसर — मजबूत सरकारी समर्थन के साथ उन्नत पैकेजिंग बुनियादी ढांचा।',
+    fc4_h: 'कच्चा माल और आपूर्ति श्रृंखला', fc4_p: 'महत्वपूर्ण खनिज आपूर्ति श्रृंखलाओं को सुरक्षित करना — सिलिकॉन, दुर्लभ पृथ्वी, विशेष गैसें।',
+    fc5_h: 'निवेश और साझेदारी', fc5_p: 'यूरोपीय और वैश्विक निवेशकों को भारत के सेमीकंडक्टर अवसर से जोड़ना और JV की संरचना करना।',
+    fc6_h: 'प्रतिभा और R&D पारिस्थितिकी तंत्र', fc6_p: 'IITs, जर्मन विश्वविद्यालयों और उद्योग के साथ सहयोग करके सेमीकंडक्टर इंजीनियरों को प्रशिक्षित करना।',
+    why_tag: 'अवसर', why_h2: 'भारत क्यों, अभी क्यों',
+    why_p1: 'भारत एक महत्वपूर्ण मोड़ पर है। 2026 तक $300B+ इलेक्ट्रॉनिक्स बाजार और भारत को वैश्विक सेमीकंडक्टर हब बनाने की प्रतिबद्धता के साथ, निवेश की स्थितियां इससे बेहतर कभी नहीं थीं।',
+    why_p2: 'भारत सेमीकंडक्टर मिशन (ISM) फैब्स, ATMP इकाइयों के लिए 50% तक पूंजी व्यय समर्थन प्रदान करता है।',
+    opp1_h: 'भारत सेमीकंडक्टर मिशन (ISM)', opp1_p: '₹76,000 करोड़ (~$10B) योजना जो सेमीकंडक्टर फैब्स के लिए 50% capex सब्सिडी प्रदान करती है।',
+    opp2_h: 'सबसे तेजी से बढ़ता बाजार', opp2_p: 'भारत का सेमीकंडक्टर बाजार 19% CAGR से बढ़ रहा है।',
+    opp3_h: 'विश्व का सबसे बड़ा STEM प्रतिभा पूल', opp3_p: 'सालाना 1.5 मिलियन से अधिक इंजीनियरिंग स्नातक।',
+    opp4_h: 'भू-राजनीतिक अनुकूल हवाएं', opp4_p: 'चीन से दूर वैश्विक आपूर्ति श्रृंखला विविधीकरण भारत को एक रणनीतिक विकल्प बनाता है।',
+    opp5_h: 'नीति और बुनियादी ढांचा समर्थन', opp5_p: 'समर्पित सेमीकंडक्टर जोन, एकल-खिड़की मंजूरी और US, जापान, EU के साथ द्विपक्षीय समझौते।',
+    about_tag: 'नेतृत्व', about_h2: 'नविन्या सेमीकॉन के बारे में', about_lead: 'इस विश्वास के साथ स्थापित कि भारत का सेमीकंडक्टर भविष्य उन लोगों द्वारा बनाया जाएगा जो पूर्व और पश्चिम को जोड़ते हैं।',
+    about_title: 'संस्थापक और CEO · जर्मनी में स्थित',
+    about_p1: 'विवेक प्रौद्योगिकी के प्रति गहरे जुनून और उद्यमशीलता की दृष्टि के साथ भारत के सेमीकंडक्टर पारिस्थितिकी तंत्र का निर्माण करने के लिए आते हैं।',
+    about_p2: 'जर्मनी से संचालन करते हुए, विवेक यूरोप के विश्व स्तरीय सेमीकंडक्टर पारिस्थितिकी तंत्र तक पहुंच को भारत की बाजार गतिशीलता की गहरी समझ के साथ जोड़ते हैं।',
+    about_email: 'ईमेल भेजें',
+    contact_tag: 'जुड़ें', contact_h2: 'संपर्क करें', contact_lead: 'चाहे आप निवेशक हों, सरकारी निकाय हों, उद्योग भागीदार हों — हम आपसे सुनना चाहते हैं।',
+    contact_info_h: 'मिलकर बनाएं', contact_info_p: 'नविन्या सेमीकॉन सेमीकंडक्टर मूल्य श्रृंखला में साझेदारी और निवेश चर्चा की तलाश कर रही है।',
+    contact_location: 'जर्मनी | भारत संचालन',
+    form_name: 'आपका नाम', form_email: 'आपका ईमेल', form_org: 'संगठन / कंपनी', form_msg: 'हमें अपनी रुचि के बारे में बताएं...', form_submit: 'संदेश भेजें →',
+    footer_tagline: 'जर्मनी में स्थापित। विश्व को भारत के सेमीकंडक्टर भविष्य से जोड़ना।'
+  },
+
+  ja: {
+    flag: '🇯🇵', code: 'JA',
+    nav_vision: 'ビジョン', nav_focus: '重点分野', nav_why: 'なぜインドか', nav_about: '会社概要', nav_contact: 'お問い合わせ',
+    hero_badge: 'ドイツ → インド | 半導体インフラ',
+    hero_h1: 'インドの<br/><span>半導体の未来を切り拓く</span>',
+    hero_sub: 'Navinya Semiconは、ヨーロッパのエンジニアリングの卓越性とインドの半導体への野心を結びつけます。チップ設計からサプライチェーン全体まで。',
+    hero_cta1: 'パートナーになる', hero_cta2: '私たちのビジョン',
+    stat1: 'インド半導体インセンティブ', stat2: 'インドの目標年', stat3: '世界最大市場', stat4: 'ドイツの精密さ、インドの規模',
+    vision_tag: '私たちのビジョン', vision_h2: 'インドの半導体主権を確立する',
+    vision_p1: 'インドは半導体需要の85%以上を輸入に依存しています。急成長するエレクトロニクス市場、膨大なエンジニアリング人材、前例のない政府支援を背景に、今こそ行動の時です。',
+    vision_p2: 'Navinya Semiconはドイツで設立され、ヨーロッパのディープテックの精度と信頼性をインド市場の野心と規模と組み合わせます。',
+    vision_p3: '材料・設計から製造、パッケージング、テストまで、半導体バリューチェーン全体にわたって活動します。',
+    vh1_h: 'インド半導体ミッション', vh1_p: 'ISMの下で₹76,000クローレの政府インセンティブを活用し、国内半導体能力を加速します。',
+    vh2_h: 'ドイツ工学ハブ', vh2_p: 'ヨーロッパの半導体エコシステム、R&Dセンター、グローバルサプライチェーンへのアクセスのため、ドイツから運営。',
+    vh3_h: 'フルバリューチェーンフォーカス', vh3_p: 'デザイン、ファブ、ATMP、材料分野で投資家、政府機関、産業パートナーを結びつけます。',
+    vh4_h: '長期的な国家建設', vh4_p: 'ビジネスを超えて — 重要技術インフラにおけるインドの戦略的自立に貢献。',
+    focus_tag: '事業内容', focus_h2: '半導体重点分野', focus_lead: 'Navinya Semiconは半導体エコシステム全体で活動し、インドの需要とグローバルな供給・専門知識を結びつけます。',
+    fc1_h: 'チップ設計・IP', fc1_p: 'インドのファブレスチップ設計企業を支援し、EDAツール、IPライブラリ、欧州設計センターと接続します。',
+    fc2_h: '半導体製造', fc2_p: 'インドのグリーンフィールドファブ優遇制度に沿ったファブ投資とパートナーシップを促進します。',
+    fc3_h: 'パッケージング・テスト（ATMP）', fc3_p: 'インドの近期半導体機会 — 強力な政府支援を持つ先進パッケージング・テストインフラ。',
+    fc4_h: '原材料・サプライチェーン', fc4_p: 'シリコン、レアアース、特殊ガスなど半導体生産に不可欠な重要鉱物サプライチェーンを確保。',
+    fc5_h: '投資・パートナーシップ', fc5_p: '欧州・グローバル投資家とインドの半導体機会を結びつけ、政策ナビゲーションとJV構築を支援。',
+    fc6_h: '人材・R&Dエコシステム', fc6_p: 'IIT、ドイツの大学、産業界との連携により半導体エンジニアを育成するパイプラインを構築。',
+    why_tag: 'ビジネス機会', why_h2: 'なぜインドか、なぜ今か',
+    why_p1: 'インドは転換点に立っています。2026年までに3,000億ドル超のエレクトロニクス市場と、インドをグローバル半導体ハブにするという政府のコミットメントにより、投資環境はかつてないほど有望です。',
+    why_p2: 'インド半導体ミッション（ISM）はファブ、ATMP設備に最大50%の設備投資支援を提供します。',
+    opp1_h: 'インド半導体ミッション（ISM）', opp1_p: '₹76,000クローレ（約100億ドル）の制度で、半導体ファブとATMP設備に50%の設備投資補助金を提供。',
+    opp2_h: '最も急成長する市場', opp2_p: 'インドの半導体市場はCAGR19%で成長中。',
+    opp3_h: '世界最大のSTEM人材プール', opp3_p: '年間150万人以上の工学部卒業生 — 半導体設計・製造の即戦力。',
+    opp4_h: '地政学的追い風', opp4_p: '中国からのグローバルサプライチェーン分散により、インドが戦略的代替地として浮上。',
+    opp5_h: '政策・インフラ支援', opp5_p: '専用半導体ゾーン、ワンストップ認可、米国・日本・EUとの二国間協定。',
+    about_tag: 'リーダーシップ', about_h2: 'Navinya Semiconについて', about_lead: '東西を結ぶ者こそがインドの半導体の未来を築くという確信のもとに設立。',
+    about_title: '創業者 & CEO · ドイツ在住',
+    about_p1: 'Vivekは深いテクノロジーへの情熱と起業家精神を持ち、インドの半導体エコシステムをゼロから構築することを目指しています。Anil Agarwalのような先駆者に触発されています。',
+    about_p2: 'ドイツから活動するVivekは、欧州の世界クラスの半導体エコシステムへのアクセスと、インドの市場動向・政策環境への深い理解を組み合わせています。',
+    about_email: 'メール送信',
+    contact_tag: 'コンタクト', contact_h2: 'お問い合わせ', contact_lead: '投資家、政府機関、産業パートナー、起業家の方など、ぜひご連絡ください。',
+    contact_info_h: '共に構築しましょう', contact_info_p: 'Navinya Semiconは半導体バリューチェーン全体でパートナーシップと投資協議を積極的に求めています。',
+    contact_location: 'ドイツ | インド事業',
+    form_name: 'お名前', form_email: 'メールアドレス', form_org: '組織 / 会社名', form_msg: 'ご興味やご協力の内容についてお聞かせください...', form_submit: 'メッセージを送る →',
+    footer_tagline: 'ドイツ設立。世界とインドの半導体の未来を結ぶ。'
+  },
+
+  zh: {
+    flag: '🇹🇼', code: 'ZH',
+    nav_vision: '願景', nav_focus: '重點領域', nav_why: '為何印度', nav_about: '關於我們', nav_contact: '聯絡我們',
+    hero_badge: '德國 → 印度 | 半導體基礎設施',
+    hero_h1: '賦能印度的<br/><span>半導體未來</span>',
+    hero_sub: 'Navinya Semicon 將歐洲工程卓越與印度不斷增長的半導體雄心相連接——從晶片設計到完整供應鏈，充分利用政府政策與全球專業知識。',
+    hero_cta1: '成為合作夥伴', hero_cta2: '我們的願景',
+    stat1: '印度半導體激勵措施', stat2: '印度目標年份', stat3: '全球最大市場', stat4: '德國精度，印度規模',
+    vision_tag: '我們的願景', vision_h2: '建立印度半導體主權',
+    vision_p1: '印度超過85%的半導體需求依賴進口。蓬勃發展的電子市場、龐大的工程人才庫和前所未有的政府支持，現在正是採取行動的時機。',
+    vision_p2: 'Navinya Semicon 在德國成立，旨在將歐洲深科技的精密度和可信度與印度市場的雄心和規模相結合——受到阿尼爾·阿加瓦爾等先驅者的啟發。',
+    vision_p3: '我們在整個半導體價值鏈中工作：從材料和設計到製造、封裝和測試——將全球專業知識與印度的戰略需求相連接。',
+    vh1_h: '印度半導體使命', vh1_p: '利用 ISM 下的 ₹76,000 裂縫政府激勵措施加速國內半導體能力。',
+    vh2_h: '德國工程中心', vh2_p: '從德國運營，以獲取歐洲半導體生態系統、研發中心和全球供應鏈。',
+    vh3_h: '全價值鏈專注', vh3_p: '在設計、晶圓廠、ATMP和材料領域與投資者、政府機構和行業合作夥伴合作。',
+    vh4_h: '長期國家建設', vh4_p: '超越商業——為印度在關鍵技術基礎設施方面的戰略自立做出貢獻。',
+    focus_tag: '我們的業務', focus_h2: '半導體重點領域', focus_lead: 'Navinya Semicon 在整個半導體生態系統中運營，將印度的需求與全球供應和專業知識相連接。',
+    fc1_h: '晶片設計與IP', fc1_p: '支持印度的無晶圓廠晶片設計企業，將其與EDA工具、IP庫和歐洲設計中心相連接。',
+    fc2_h: '半導體製造', fc2_p: '促進晶圓廠投資和合作夥伴關係，與印度的綠地晶圓廠激勵計劃保持一致。',
+    fc3_h: '封裝與測試（ATMP）', fc3_p: '印度近期半導體機會——具有強大政府支持的先進封裝和測試基礎設施。',
+    fc4_h: '原材料與供應鏈', fc4_p: '確保關鍵礦物供應鏈——矽、稀土、特種氣體——半導體生產的必需品。',
+    fc5_h: '投資與合作夥伴關係', fc5_p: '將歐洲和全球投資者與印度的半導體機會相連接，提供政策導航和合資企業結構。',
+    fc6_h: '人才與研發生態系統', fc6_p: '通過與IIT、德國大學和行業合作培養半導體工程師，建立人力資本管道。',
+    why_tag: '機遇', why_h2: '為何選擇印度，為何是現在',
+    why_p1: '印度正處於一個轉折點。預計到2026年電子市場超過3000億美元，加上數字化驅動的經濟和致力於使印度成為全球半導體中心的政府，投資條件從未如此有利。',
+    why_p2: '印度半導體使命（ISM）為晶圓廠、ATMP裝置提供高達50%的資本支出支持。',
+    opp1_h: '印度半導體使命（ISM）', opp1_p: '₹76,000 裂縫（約100億美元）計劃，為半導體晶圓廠和ATMP設施提供50%資本支出補貼。',
+    opp2_h: '增長最快的市場', opp2_p: '印度半導體市場以19% CAGR增長，受移動、汽車和工業需求驅動。',
+    opp3_h: '全球最大STEM人才庫', opp3_p: '每年超過150萬名工程畢業生——半導體設計和製造的現成勞動力。',
+    opp4_h: '地緣政治順風', opp4_p: '全球供應鏈從中國多元化，使印度成為半導體生產的戰略替代選擇。',
+    opp5_h: '政策與基礎設施支持', opp5_p: '專用半導體區、單一窗口審批以及與美國、日本和歐盟的雙邊協議。',
+    about_tag: '領導層', about_h2: '關於 Navinya Semicon', about_lead: '創立於這樣的信念：印度的半導體未來將由那些跨越東西方的人來建設——在技術、資本和願景方面。',
+    about_title: '創始人兼CEO · 駐德國',
+    about_p1: 'Vivek 帶著對技術的深厚熱情和創業願景，從零開始構建印度的半導體生態系統。受阿尼爾·阿加瓦爾等實業家的變革性影響所啟發。',
+    about_p2: '從德國運營，Vivek 將獲取歐洲世界一流半導體生態系統的機會與對印度市場動態、政策環境和長期潛力的深刻理解相結合。',
+    about_email: '發送郵件',
+    contact_tag: '聯繫', contact_h2: '聯絡我們', contact_lead: '無論您是投資者、政府機構、行業合作夥伴還是同路人——我們很樂意聽取您的意見。',
+    contact_info_h: '共同建設', contact_info_p: 'Navinya Semicon 正積極尋求整個半導體價值鏈的合作夥伴關係和投資討論。',
+    contact_location: '德國 | 印度業務',
+    form_name: '您的姓名', form_email: '您的郵箱', form_org: '組織 / 公司', form_msg: '請告訴我們您的興趣或希望如何合作...', form_submit: '發送消息 →',
+    footer_tagline: '在德國成立。將世界與印度的半導體未來相連。'
   }
+};
 
-  // Close menu on link click
-  document.querySelectorAll('#navLinks a').forEach(link => {
-    link.addEventListener('click', () => {
-      document.getElementById('navLinks').classList.remove('open');
-    });
+let currentLang = 'en';
+
+function setLang(lang) {
+  currentLang = lang;
+  const t = LANGS[lang];
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (t[key] !== undefined) el.innerHTML = t[key];
   });
-
-  // Navbar scroll effect
-  window.addEventListener('scroll', () => {
-    const nav = document.querySelector('nav');
-    nav.style.borderBottomColor = window.scrollY > 50
-      ? 'rgba(201,168,76,0.35)'
-      : 'rgba(201,168,76,0.2)';
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.getAttribute('data-i18n-placeholder');
+    if (t[key] !== undefined) el.placeholder = t[key];
   });
-
-  // Scroll reveal
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.style.opacity = '1';
-        e.target.style.transform = 'translateY(0)';
-      }
-    });
-  }, { threshold: 0.1 });
-
-  document.querySelectorAll('.focus-card, .vh-item, .opportunity-list li, .contact-item').forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(24px)';
-    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-    observer.observe(el);
+  document.getElementById('langBtn').textContent = t.flag + ' ' + t.code + ' ▾';
+  document.querySelectorAll('.lang-option').forEach(el => {
+    el.classList.toggle('active', el.textContent.includes(t.flag));
   });
+  document.getElementById('langDropdown').classList.remove('open');
+  document.documentElement.lang = lang;
+}
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    const btn = e.target.querySelector('button');
-    btn.textContent = 'Message Sent ✓';
-    btn.style.background = '#2d7a4f';
-    btn.style.color = '#fff';
-    btn.disabled = true;
-    setTimeout(() => {
-      btn.textContent = 'Send Message →';
-      btn.style.background = '';
-      btn.style.color = '';
-      btn.disabled = false;
-      e.target.reset();
-    }, 3000);
-  }
+function toggleLangMenu(e) {
+  e.stopPropagation();
+  document.getElementById('langDropdown').classList.toggle('open');
+}
+
+document.addEventListener('click', () => {
+  document.getElementById('langDropdown').classList.remove('open');
+});
+
+function toggleMenu() {
+  document.getElementById('navLinks').classList.toggle('open');
+}
+
+document.querySelectorAll('#navLinks a').forEach(link => {
+  link.addEventListener('click', () => {
+    document.getElementById('navLinks').classList.remove('open');
+  });
+});
+
+window.addEventListener('scroll', () => {
+  const nav = document.querySelector('nav');
+  nav.style.borderBottomColor = window.scrollY > 50
+    ? 'rgba(201,168,76,0.35)' : 'rgba(201,168,76,0.2)';
+});
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.focus-card, .vh-item, .opportunity-list li, .contact-item').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(24px)';
+  el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+  observer.observe(el);
+});
+
+function handleSubmit(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('button');
+  btn.textContent = '✓';
+  btn.style.background = '#2d7a4f';
+  btn.style.color = '#fff';
+  btn.disabled = true;
+  setTimeout(() => {
+    btn.textContent = LANGS[currentLang].form_submit || 'Send Message →';
+    btn.style.background = '';
+    btn.style.color = '';
+    btn.disabled = false;
+    e.target.reset();
+  }, 3000);
+}
 </script>
 </body>
 </html>
